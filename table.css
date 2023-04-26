@@ -10,3 +10,7 @@ tfoot {
   background-color: #333;
   color: #fff;
 }
+
+.link {
+  border: 2px solid black;
+}

@@ -23,14 +23,14 @@ function addData() {
     name: "few",
     surname: "fews",
     patronymic: "fewss",
-    birthday: new Date(2000, 12,),
-    yearOfEntry: ,
+    birthday: new Date(2000, 12, 03),
+    yearOfEntry: new Date(2017, 07, 12),
     faculty: inpFaculty.value,
   };
 
   students.push(student);
 
-    let display = `
+  let display = `
           <tr>
             <td>${student.name}</td>
             <td>${student.surname}</td>
@@ -40,7 +40,7 @@ function addData() {
             <td>${student.faculty}</td>
           </tr>
     `;
-    tbody.insertAdjacentHTML("beforeend", display);
+  tbody.insertAdjacentHTML("beforeend", display);
   console.log(students);
 }
 enterBtn.addEventListener("click", addData);
