@@ -11,6 +11,8 @@
 
 // let enterBtn = document.getElementById("#enterData");
 
+// import { students } from "./form.js";
+
 const tbody = document.querySelector(".tbody");
 let students = [];
 
@@ -28,8 +30,8 @@ function addData() {
     faculty: inpFaculty.value,
   };
 
-  students.push(student);
-
+  // students.push(student);
+  // объединить раздельные инициалы на фио
   let display = `
           <tr>
             <td>${student.name}</td>
