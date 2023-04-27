@@ -8,7 +8,8 @@ let inpFaculty = document.getElementById("facultyId");
 
 let enterBtn = document.getElementById("enterData");
 
-let students = [];
+export let students = [];
+
 function addStudent() {
   let student = {
     name: inpName.value,

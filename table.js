@@ -14,21 +14,24 @@
 // import { students } from "./form.js";
 
 const tbody = document.querySelector(".tbody");
-let students = [];
+// let students = [];
+
+import { students } from "./form.js";
+console.log(students);
 
 // let student = { name: "", surname: "", patronymic: "", birthday:,
 // yearOfEntry: "", faculty: ""};
 
 // везде строки (только для теста)
 function addData() {
-  let student = {
-    name: "few",
-    surname: "fews",
-    patronymic: "fewss",
-    birthday: new Date(2000, 12, 03),
-    yearOfEntry: new Date(2017, 07, 12),
-    faculty: inpFaculty.value,
-  };
+  // let student = {
+  //   name: "few",
+  //   surname: "fews",
+  //   patronymic: "fewss",
+  //   birthday: new Date(2000, 12, 03),
+  //   yearOfEntry: new Date(2017, 07, 12),
+  //   faculty: inpFaculty.value,
+  // };
 
   // students.push(student);
   // объединить раздельные инициалы на фио
