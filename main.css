@@ -52,3 +52,14 @@
   border-radius: 20px;
   margin-top: 2%;
 }
+
+.closeForm {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 20px;
+  cursor: pointer;
+  /* position: fixed; */
+  /* margin-left: 52%;
+  margin-top: -39%; */
+}
