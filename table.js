@@ -14,9 +14,9 @@
 // import { students } from "./form.js";
 
 const tbody = document.querySelector(".tbody");
-// let students = [];
+let students = [];
 
-import { students } from "./form.js";
+// import { students } from "./form.js";
 console.log(students);
 
 // let student = { name: "", surname: "", patronymic: "", birthday:,
@@ -24,17 +24,16 @@ console.log(students);
 
 // везде строки (только для теста)
 function addData() {
-  // let student = {
-  //   name: "few",
-  //   surname: "fews",
-  //   patronymic: "fewss",
-  //   birthday: new Date(2000, 12, 03),
-  //   yearOfEntry: new Date(2017, 07, 12),
-  //   faculty: inpFaculty.value,
-  // };
+  let student = {
+    name: "few",
+    surname: "fews",
+    patronymic: "fewss",
+    birthday: new Date(2000, 12, 03),
+    yearOfEntry: new Date(2017, 07, 12),
+    faculty: "123",
+  };
 
-  // students.push(student);
-  // объединить раздельные инициалы на фио
+  students.push(student);
   let display = `
           <tr>
             <td>${student.name}</td>
@@ -48,7 +47,7 @@ function addData() {
   tbody.insertAdjacentHTML("beforeend", display);
   console.log(students);
 }
-enterBtn.addEventListener("click", addData);
-// addData();
+// enterBtn.addEventListener("click", addData);
+addData();
 
 console.log(students);

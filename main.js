@@ -1,15 +1,7 @@
+// form
 const openForm = document.getElementById("openForm");
 const closeForm = document.getElementById("closeForm");
 const form = document.querySelector(".form");
-
-const inpName = document.getElementById("nameId");
-const inpSurname = document.getElementById("surnameId");
-const inpPatronymic = document.getElementById("patronymicId");
-const inpBirthday = document.getElementById("birthdayId");
-const inpYearOfEntry = document.getElementById("yearOfEntryId");
-const inpFaculty = document.getElementById("facultyId");
-
-const enterBtn = document.getElementById("enterData");
 
 openForm.addEventListener("click", (e) => {
   e.preventDefault();
@@ -21,6 +13,15 @@ closeForm.addEventListener("click", () => {
   form.classList.remove("active");
 });
 
+const inpName = document.getElementById("nameId");
+const inpSurname = document.getElementById("surnameId");
+const inpPatronymic = document.getElementById("patronymicId");
+const inpBirthday = document.getElementById("birthdayId");
+const inpYearOfEntry = document.getElementById("yearOfEntryId");
+const inpFaculty = document.getElementById("facultyId");
+
+const enterBtn = document.getElementById("enterData");
+
 // if (closeForm != null) {
 //   closeForm.addEventListener("click", () => {
 //     form.classList.remove("active");
@@ -31,7 +32,45 @@ closeForm.addEventListener("click", () => {
 // добавление студентов
 let students = [];
 
-function addStudent() {
+// function addStudent() {
+//   let student = {
+//     name: inpName.value,
+//     surname: inpSurname.value,
+//     patronymic: inpPatronymic.value,
+//     birthday: inpBirthday.value,
+//     yearOfEntry: inpYearOfEntry.value,
+//     faculty: inpFaculty.value,
+//   };
+
+//   // console.log(student);
+//   students.push(student);
+//   console.log(students);
+//   // console.log("works");
+
+//   inpName.value = "";
+//   inpSurname.value = "";
+//   inpPatronymic.value = "";
+//   inpFaculty.value = "";
+
+//   let display = `
+//           <tr>
+//             <td>${student.name}</td>
+//             <td>${student.surname}</td>
+//             <td>${student.patronymic}</td>
+//             <td>${student.birthday}</td>
+//             <td>${student.yearOfEntry}</td>
+//             <td>${student.faculty}</td>
+//           </tr>
+//     `;
+//   tbody.insertAdjacentHTML("beforeend", display);
+//   console.log(students);
+// }
+
+// if (enterBtn != null) {
+//   enterBtn.addEventListener("click", addStudent);
+// }
+
+function addData() {
   let student = {
     name: inpName.value,
     surname: inpSurname.value,
@@ -41,17 +80,22 @@ function addStudent() {
     faculty: inpFaculty.value,
   };
 
-  // console.log(student);
   students.push(student);
+
+  let display = `
+          <tr>
+            <td>${student.name}</td>
+            <td>${student.surname}</td>
+            <td>${student.patronymic}</td>
+            <td>${student.birthday}</td>
+            <td>${student.yearOfEntry}</td>
+            <td>${student.faculty}</td>
+          </tr>
+    `;
+  tbody.insertAdjacentHTML("beforeend", display);
   console.log(students);
-  // console.log("works");
-
-  inpName.value = "";
-  inpSurname.value = "";
-  inpPatronymic.value = "";
-  inpFaculty.value = "";
 }
+enterBtn.addEventListener("click", addData);
+addData();
 
-if (enterBtn != null) {
-  enterBtn.addEventListener("click", addStudent);
-}
+console.log(students);

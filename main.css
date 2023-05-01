@@ -74,3 +74,20 @@
   /* margin-left: 52%;
   margin-top: -39%; */
 }
+
+table,
+td {
+  width: 50px;
+  border: 1px solid #333;
+}
+
+thead,
+tfoot {
+  width: 50px;
+  background-color: #333;
+  color: #fff;
+}
+
+/* .link {
+  border: 2px solid black;
+} */
