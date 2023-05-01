@@ -69,6 +69,7 @@ let students = [];
 // if (enterBtn != null) {
 //   enterBtn.addEventListener("click", addStudent);
 // }
+const tbody = document.querySelector(".tbody");
 
 function addData() {
   let student = {
@@ -81,21 +82,16 @@ function addData() {
   };
 
   students.push(student);
-
   let display = `
+          
           <tr>
-            <td>${student.name}</td>
-            <td>${student.surname}</td>
-            <td>${student.patronymic}</td>
+            <td>${student.name} ${student.surname} ${student.patronymic}</td>
+            <td>${student.faculty}</td>
             <td>${student.birthday}</td>
             <td>${student.yearOfEntry}</td>
-            <td>${student.faculty}</td>
           </tr>
     `;
   tbody.insertAdjacentHTML("beforeend", display);
-  console.log(students);
 }
 enterBtn.addEventListener("click", addData);
-addData();
-
-console.log(students);
+// addData();

@@ -17,7 +17,6 @@ const tbody = document.querySelector(".tbody");
 let students = [];
 
 // import { students } from "./form.js";
-console.log(students);
 
 // let student = { name: "", surname: "", patronymic: "", birthday:,
 // yearOfEntry: "", faculty: ""};
@@ -36,16 +35,19 @@ function addData() {
   students.push(student);
   let display = `
           <tr>
-            <td>${student.name}</td>
-            <td>${student.surname}</td>
-            <td>${student.patronymic}</td>
+          <th>ФИО</th>
+          <th>Факультет</th>
+          <th>Дата рождения</th>
+          <th>Год зачисления</th>
+          </tr>
+          <tr>
+            <td>${student.name} ${student.surname} ${student.patronymic}</td>
+            <td>${student.faculty}</td>
             <td>${student.birthday}</td>
             <td>${student.yearOfEntry}</td>
-            <td>${student.faculty}</td>
           </tr>
     `;
   tbody.insertAdjacentHTML("beforeend", display);
-  console.log(students);
 }
 // enterBtn.addEventListener("click", addData);
 addData();
