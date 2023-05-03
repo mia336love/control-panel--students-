@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>main</title>
-    <script src="main.js" defer></script>
+    <!-- <script src="main.js" defer></script> -->
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
@@ -28,7 +28,14 @@
             <p>Дата рождения:</p>
             <input type="date" min="01.01.1900" id="birthdayId" /><br />
             <p>Год поступления:</p>
-            <input type="month" id="yearOfEntryId" /><br />
+            <!-- <input type="month" id="yearOfEntryId" /><br /> -->
+            <input
+              type="number"
+              id="yearOfEntryId"
+              min="1900"
+              max="2099"
+              step="1"
+            />
             <p>Факультет:</p>
             <input type="text" id="facultyId" /><br />
 
@@ -55,5 +62,6 @@
         </tr>
       </tbody>
     </table>
+    <script src="main.js"></script>
   </body>
 </html>
