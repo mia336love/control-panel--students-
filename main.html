@@ -20,14 +20,15 @@
           <form action="">
             <p>Фамилия:</p>
             <input type="text" id="surnameId" /><br />
+            <!-- мб добавить placeholder -->
             <p>Имя:</p>
             <input type="text" id="nameId" /><br />
             <p>Отчество:</p>
             <input type="text" id="patronymicId" /><br />
             <p>Дата рождения:</p>
-            <input type="date" id="birthdayId" /><br />
+            <input type="date" min="01.01.1900" id="birthdayId" /><br />
             <p>Год поступления:</p>
-            <input type="date" id="yearOfEntryId" /><br />
+            <input type="month" id="yearOfEntryId" /><br />
             <p>Факультет:</p>
             <input type="text" id="facultyId" /><br />
 
@@ -49,7 +50,7 @@
         <tr>
           <th>ФИО</th>
           <th>Факультет</th>
-          <th>Дата рождения</th>
+          <th>Дата рождения и возраст</th>
           <th>Год зачисления</th>
         </tr>
       </tbody>
