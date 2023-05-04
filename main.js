@@ -23,15 +23,6 @@ const inpFaculty = document.getElementById("facultyId");
 const enterBtn = document.getElementById("enterData");
 
 // др и возраст
-const birth = new Date(inpBirthday.value);
-const birthday = formatDate(new Date(inpBirthday.value));
-const today = formatDate(new Date());
-let age = Math.floor((Date.now() - birth) / (1000 * 60 * 60 * 24 * 30 * 12));
-
-// курс
-const year = inpYearOfEntry.value;
-let course = Math.trunc(new Date().getFullYear() - inpYearOfEntry.value);
-course > 4 ? (course = "Завершил") : (course = `${course} курс`);
 
 // const tbody = document.querySelector(".tbody");
 
@@ -63,6 +54,25 @@ let students = [
   },
 ];
 
+// students.forEach(function () {
+//   for (i in students) {
+//     // курс
+//     const year = students[i].startYear;
+//     console.log(year);
+//     let course = Math.trunc(new Date().getFullYear() - students[i].startYear);
+//     course > 4 ? (course = "Завершил") : (course = `${course} курс`);
+//   }
+// });
+
+// students.forEach((students) => {
+//   for (i in students) {
+//     const birth = new Date(students.birthday[i]);
+//     console.log(birth);
+//     let age = Math.floor(
+//       (Date.now() - birth) / (1000 * 60 * 60 * 24 * 30 * 12)
+//     );
+//   }
+// });
 function renderTable(students) {
   let table = `
   <table>
@@ -86,7 +96,7 @@ function renderTable(students) {
       <td>${student.name}</td>
       <td>${student.surname}</td>
       <td>${student.lastname}</td>
-      <td>${student.birthday.toDateString()}</td>
+      <td>${student.birthday.toLocaleDateString()}</td>
       <td>${student.startYear}</td>
       <td>${student.faculty}</td>
     </tr>`;
@@ -100,15 +110,23 @@ renderTable(students);
 
 function addStudent() {
   // проверка на др и возраст
+  const birth = new Date(inpBirthday.value);
+  const birthdayX = birth.toLocaleDateString();
+  const birthday = formatDate(new Date(inpBirthday.value));
+  const today = formatDate(new Date());
+  let age = Math.floor((Date.now() - birth) / (1000 * 60 * 60 * 24 * 30 * 12));
 
   if (birthday > today) {
+    console.log(birthday);
     console.log("false");
     return;
   }
 
   // курс
+  const year = inpYearOfEntry.value;
+  let course = Math.trunc(new Date().getFullYear() - inpYearOfEntry.value);
+  course > 4 ? (course = "Завершил") : (course = `${course} курс`);
 
-  /////////////////////////
   let student = {
     surname: inpSurname.value,
     name: inpName.value,
@@ -127,7 +145,7 @@ function addStudent() {
           <td>${student.name}</td>
           <td>${student.surname}</td>
           <td>${student.lastname}</td>
-          <td>${student.birthday} (${age} лет)</td>
+          <td>${birthdayX} (${age} лет)</td>
           <td>${student.startYear}-${Number(year) + 4} (${course})</td>
           <td>${student.faculty}</td>
         </tr>
@@ -157,7 +175,7 @@ function formatDate(date) {
 
   return [year, month, day].join(".");
 }
-
+const sortBtn = document.getElementById("sort");
 function sortStudents(array, objProperty, direction = false) {
   let result = array.sort(function (a, b) {
     let direct =
@@ -170,6 +188,9 @@ function sortStudents(array, objProperty, direction = false) {
 
   return result;
 }
+
+// sortBtn.addEventListener("click", sortStudents(students, "name", false));
+console.log(sortStudents(students, "name", false));
 // console.log(sortStudents(students, "name", false));
 
 // function displayAge(date) {
