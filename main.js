@@ -44,13 +44,14 @@ function addData() {
     faculty: inpFaculty.value,
   };
 
-  function empty() {
-    if ((inpName = "")) {
-      console.log("empty");
-      return;
-    }
-  }
-  empty();
+  // function empty() {
+  //   if ((inpName = "")) {
+  //     console.log("empty");
+  //     return;
+  //   }
+  // }
+  // empty();
+
   // проверка дня рождения + возраст
   const todayDate = new Date();
   const today = formatDate(todayDate);
@@ -70,10 +71,14 @@ function addData() {
   let display = `
           
           <tr>
-            <td>${student.name} ${student.surname} ${student.patronymic}</td>
-            <td>${student.faculty}</td>
-            <td>${student.birthday} (${age} лет)</td>
-            <td>${student.yearOfEntry}-${Number(year) + 4} (${course})</td>
+            <td class="FIO">${student.name} ${student.surname} ${
+    student.patronymic
+  }</td>
+            <td class="faculty">${student.faculty}</td>
+            <td class="birthday">${student.birthday} (${age} лет)</td>
+            <td class="educYears">${student.yearOfEntry}-${
+    Number(year) + 4
+  } (${course})</td>
           </tr>
     `;
   tbody.insertAdjacentHTML("beforeend", display);
@@ -105,4 +110,34 @@ function formatDate(date) {
   if (day.length < 2) day = "0" + day;
 
   return [year, month, day].join(".");
+}
+
+// function sortStudents(students) {
+//   let newArr = [];
+// }
+
+// tbody.addEventListener("click", (e) => {
+//   const el = e.target;
+//   // const thead = document.querySelector(".thead");
+
+//   if (e.nodeName !== "TH") return;
+//   console.log("click th");
+// });
+
+// let sortName = document.getElementById()
+let sortFIO = document.getElementById("sortFIO");
+
+sortFIO.addEventListener("click", sortStudents(students, "surname", false));
+
+function sortStudents(array, objProperty, direction = false) {
+  let result = array.sort(function (a, b) {
+    let direct =
+      direction == false
+        ? a[objProperty] < b[objProperty]
+        : a[objProperty] > b[objProperty];
+
+    if (direct == true) return -1;
+  });
+
+  return result;
 }
