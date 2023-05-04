@@ -22,6 +22,17 @@ const inpFaculty = document.getElementById("facultyId");
 
 const enterBtn = document.getElementById("enterData");
 
+// др и возраст
+const birth = new Date(inpBirthday.value);
+const birthday = formatDate(new Date(inpBirthday.value));
+const today = formatDate(new Date());
+let age = Math.floor((Date.now() - birth) / (1000 * 60 * 60 * 24 * 30 * 12));
+
+// курс
+const year = inpYearOfEntry.value;
+let course = Math.trunc(new Date().getFullYear() - inpYearOfEntry.value);
+course > 4 ? (course = "Завершил") : (course = `${course} курс`);
+
 // const tbody = document.querySelector(".tbody");
 
 // добавление студентов
@@ -88,6 +99,16 @@ function renderTable(students) {
 renderTable(students);
 
 function addStudent() {
+  // проверка на др и возраст
+
+  if (birthday > today) {
+    console.log("false");
+    return;
+  }
+
+  // курс
+
+  /////////////////////////
   let student = {
     surname: inpSurname.value,
     name: inpName.value,
@@ -100,106 +121,31 @@ function addStudent() {
   students.push(student);
 
   console.log(sortStudents(students, "name", false));
+
   let display = `
         <tr>
           <td>${student.name}</td>
           <td>${student.surname}</td>
           <td>${student.lastname}</td>
-          <td>${student.birthday}</td>
-          <td>${student.startYear}</td>
+          <td>${student.birthday} (${age} лет)</td>
+          <td>${student.startYear}-${Number(year) + 4} (${course})</td>
           <td>${student.faculty}</td>
         </tr>
         `;
-  // tbody.insertAdjacentHTML("beforeend", display);
 
   document.querySelector("tbody").insertAdjacentHTML("beforeend", display);
-
-  // let display = `;
-
-  //           <tr>
-  //             <td class="FIO">${FIO}</td>
-  //             <td class="faculty">${student.faculty}</td>
-  //             <td class="birthday">${student.birthday} (${age} лет)</td>
-  //             <td class="educYears">${student.yearOfEntry}-${
-  //     Number(year) + 4
-  //   } (${course})</td>
-  //           </tr>
-  //     `;
-  //   tbody.insertAdjacentHTML("beforeend", display);
 }
 enterBtn.addEventListener("click", addStudent);
-function addData() {
-  const birth = new Date(inpBirthday.value);
-  const birthday = formatDate(birth);
-  const birthdayX = new Date(inpBirthday.value).toLocaleDateString();
 
-  const year = inpYearOfEntry.value;
-
-  console.log(students);
-  let student = {
-    surname: inpSurname.value,
-    name: inpName.value,
-    patronymic: inpPatronymic.value,
-    birthday: birthdayX,
-    yearOfEntry: year,
-    faculty: inpFaculty.value,
-  };
-
-  // проверка дня рождения + возраст
-  const todayDate = new Date();
-  const today = formatDate(todayDate);
-
+function changeBirthday() {
+  const birthday = formatDate(new Date(inpBirthday.value));
+  const today = formatDate(new Date());
   if (birthday > today) {
     console.log("false");
     return;
   }
-
-  let age = Math.floor((Date.now() - birth) / (1000 * 60 * 60 * 24 * 30 * 12));
-
-  // курс
-  let course = Math.trunc(new Date().getFullYear() - inpYearOfEntry.value);
-  course > 4 ? (course = "Завершил") : (course = `${course} курс`);
-
-  students.push(student);
-  // let FIO = student.surname + " " + student.name + " " + student.patronymic;
-
-  //   let display = `
-
-  //           <tr>
-  //             <td class="FIO">${FIO}</td>
-  //             <td class="faculty">${student.faculty}</td>
-  //             <td class="birthday">${student.birthday} (${age} лет)</td>
-  //             <td class="educYears">${student.yearOfEntry}-${
-  //     Number(year) + 4
-  //   } (${course})</td>
-  //           </tr>
-  //     `;
-  //   tbody.insertAdjacentHTML("beforeend", display);
-
-  //   inpSurname.value = "";
-  //   inpName.value = "";
-  //   inpPatronymic.value = "";
-  //   inpBirthday.value = "";
-  //   inpYearOfEntry.value = "";
-  //   inpFaculty.value = "";
-  // }
-  // enterBtn.addEventListener("click", addData);
-  // addData();
-
-  function displayAge(date) {
-    let studentAge = Math.floor(
-      (Date.now() - date) / (1000 * 60 * 60 * 24 * 30 * 12)
-    );
-    return studentAge;
-  }
-
-  // let sortFIO = document.getElementById("sortFIO");
-
-  // sortFIO.addEventListener("click", sortStudents(students, "faculty", false));
-  // function test() {
-  //   console.log("test works");
-  // }
 }
+
 function formatDate(date) {
   let d = new Date(date),
     month = "" + (d.getMonth() + 1),
@@ -225,3 +171,10 @@ function sortStudents(array, objProperty, direction = false) {
   return result;
 }
 // console.log(sortStudents(students, "name", false));
+
+// function displayAge(date) {
+//   let studentAge = Math.floor(
+//     (Date.now() - date) / (1000 * 60 * 60 * 24 * 30 * 12)
+//   );
+//   return studentAge;
+// }
