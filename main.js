@@ -50,10 +50,9 @@ let students = [
   },
 ];
 
-// разделить создание заголовков и создание записей
 function renderTable(students) {
-  let table = `
-  <table id="table" data-type="unsorted">
+  const tableHeader = `
+    <table id="table" data-type="unsorted">
       <thead>
         <tr>
           <th class='button'>Full Name</th>
@@ -62,27 +61,31 @@ function renderTable(students) {
           <th class='button'>Faculty</th>
         </tr>
       </thead>
-        <tbody>
-
-        </tbody>
-        `;
-
-  // в отдельную функцию ↓
-  students.forEach((student) => {
-    table += `
-    <tr class="tr_">
-      <td>${student.surname} ${student.name} ${student.lastname}</td>
-      <td>${student.birthday.toLocaleDateString()} (${setAge(
-      student.birthday
-    )} years) </td>
-      <td>${student.startYear}</td>
-      <td>${student.faculty}</td>
-    </tr>`;
-  });
-  table += `
-  </table>
+      <tbody>
   `;
+  const tableFooter = `
+      </tbody>
+    </table>
+  `;
+  const tableBody = createTableBody(students);
+  const table = tableHeader + tableBody + tableFooter;
   document.querySelector("body").insertAdjacentHTML("beforeend", table);
+}
+
+function createTableBody(students) {
+  let tableBody = "";
+  students.forEach((student) => {
+    const { surname, name, lastname, birthday, startYear, faculty } = student;
+    tableBody += `
+      <tr class="tr_">
+        <td>${surname} ${name} ${lastname}</td>
+        <td>${birthday.toLocaleDateString()} (${setAge(birthday)} years) </td>
+        <td>${startYear}</td>
+        <td>${faculty}</td>
+      </tr>
+    `;
+  });
+  return tableBody;
 }
 renderTable(students);
 
@@ -207,62 +210,10 @@ console.log("func in action:", setCourse("2021"));
 // сортировка
 
 // наход главных ячеек для сортировки по нажатию на них
-let cellFullName = document.getElementById("table").rows[0].cells[0]; // sort full name
-let cellBirthdayAndAge = document.getElementById("table").rows[0].cells[1]; // sort birthday and age
-let cellYearsOfStudy = document.getElementById("table").rows[0].cells[2]; // sort years of study
-let cellFaculty = document.getElementById("table").rows[0].cells[3]; // sort faculty
 
-// function forSort(filter) {
-//   let sortedStudents = students.sort(filter);
-//   let tables = document.querySelectorAll(".tr_");
-//   for (let i = 0; i < tables.length; i++) {
-//     tables.remove();
-//   }
-// }
-
-// function sortStudents(array, objProperty, direction = false) {
-//   let newStudents = [];
-
-//   newStudents.forEach((i) => {
-//     newStudents.push(i[objProperty]);
-//   });
-//   let result = array.sort(function (a, b) {
-//     let direct =
-//       direction == false
-//         ? a[objProperty] < b[objProperty]
-//         : a[objProperty] > b[objProperty];
-
-//     if (direct == true) return -1;
-//   });
-// return result;
-
-// clearStudents();
-// renderTable(array);
-// }
-
-// cellFullName.addEventListener("click", fullSort(students)); //() => {
-// sortStudents(students, "surname", false);
-
-// snpFilter();
+// cellFullName.addEventListener("click", () => {
+//   forEvent(snpFilter);
 // });
-
-// function clearStudents() {
-//   let forRemove = document.querySelectorAll(".tr_");
-//   forRemove.forEach((i) => {
-//     i.remove();
-//   });
-// }
-
-// ----------------------------------------------------------------------------------------------------------------------------------------
-// function fullSort(array) {
-//   sortStudents(students, "surname", false);
-//   // clearStudents();
-//   renderTable(array);
-// }
-
-cellFullName.addEventListener("click", () => {
-  forEvent(snpFilter);
-});
 
 function snpFilter(x, y) {
   if (x.surname < y.surname) {
