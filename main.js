@@ -204,32 +204,47 @@ console.log("func in action:", setCourse("2021"));
 // let testDate = Math.trunc(new Date().getFullYear());
 // console.log("testDate:", typeof testDate);
 
-// const trFullName
-// const tr
-
+let buttons = document.querySelectorAll(".button");
+buttons.forEach((element) =>
+  element.addEventListener("click", () => {
+    if (element.innerHTML == "Full Name") {
+      sortStudents(students, "surname");
+      return;
+    }
+  })
+);
 // сортировка
-
-// наход главных ячеек для сортировки по нажатию на них
-
-// cellFullName.addEventListener("click", () => {
-//   forEvent(snpFilter);
-// });
-
-function snpFilter(x, y) {
-  if (x.surname < y.surname) {
-    return -1;
+function sortStudents(students, elem) {
+  let newStudents = [];
+  let oldStudents = [];
+  document.querySelectorAll(".tr_").forEach((item) => {
+    newStudents.push(item.innerHTML.slice(0, item.innerHTML.indexOf(" ")));
+  });
+  students.forEach((item) => {
+    oldStudents.push(item[elem]);
+  });
+  if (document.getElementById("table").dataset.type !== "sorted") {
+    students = students.sort((a, b) => (a[elem] > b[elem] ? 1 : -1));
+    document.getElementById("table").dataset.type = "sorted";
+  } else {
+    students = students.sort((a, b) => (a[elem] > b[elem] ? -1 : 1));
+    document.getElementById("table").dataset.type = "unsorted";
   }
-  if (x.surname > y.surname) {
-    return 1;
-  }
-  return 0;
+  clearTableBody();
+  createTableBody(students);
+}
+function clearTableBody() {
+  document.querySelectorAll(".tr__rows").forEach((item) => {
+    item.remove();
+  });
 }
 
-function forEvent(filter) {
-  let newArray = students.sort(filter);
-  let oldTables = document.querySelectorAll(".tr_");
-  for (let k = 0; k < oldTables.length; k++) {
-    oldTables[k].remove();
-    renderTable(newArray[k]);
-  }
-}
+// if (document.getElementById("table").dataset.type == "sorted") {
+//   return students.sort((a, b) => {
+//     a[elem] < b[elem] ? -1 : 1;
+//   });
+// } else if (document.getElementById("table").dataset.type !== "sorted") {
+//   return students.sort((a, b) => {
+//     a[elem] < b[elem] ? -1 : 1;
+//   });
+// }
