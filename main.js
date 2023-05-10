@@ -6,7 +6,6 @@ const form = document.querySelector(".form");
 openForm.addEventListener("click", (e) => {
   e.preventDefault();
   form.classList.add("active");
-  // console.log("active");
 });
 
 closeForm.addEventListener("click", () => {
@@ -22,14 +21,14 @@ const inpFaculty = document.getElementById("facultyId");
 
 const enterBtn = document.getElementById("enterData");
 
-console.log("type input", typeof inpYearOfEntry);
+console.log("type input:", inpYearOfEntry);
 // добавление студентов
 let students = [
   {
     name: "bbb",
     surname: "fffff",
     lastname: "aaaaa",
-    birthday: new Date("2004-04-04"),
+    birthday: new Date(2003, 2, 3),
     startYear: 2021,
     faculty: "kl",
   },
@@ -37,7 +36,7 @@ let students = [
     name: "qqqqqq",
     surname: "xxxxxx",
     lastname: "aaaaaa",
-    birthday: new Date("2005-05-05"),
+    birthday: new Date(2004, 3, 4),
     startYear: 2021,
     faculty: "kl",
   },
@@ -45,34 +44,18 @@ let students = [
     name: "iiiiiii",
     surname: "sssss",
     lastname: "mmmm",
-    birthday: new Date("2001-10-29"),
+    birthday: new Date(2005, 4, 5),
     startYear: 2020,
     faculty: "cdc",
   },
 ];
 
-// students.forEach(() => {
-//   for (let i = 0; i < students.length; i++) {
-//     console.log(students[i].name);
-//   }
-// });
-
-// students.forEach(function (student) {
-//   console.log(setAge(student.birthday));
-// });
-
-// for (i = 0; i < students.length; i++) {
-//   console.log(students[i].name);
-// }
-
-// console.log(students.birthday);
-// console.log(setAge(students.birthday));
-
+// разделить создание заголовков и создание записей
 function renderTable(students) {
   let table = `
   <table id="table" data-type="unsorted">
       <thead>
-        <tr class="tr_">
+        <tr>
           <th class='button'>Full Name</th>
           <th class='button'>Birthday and Age</th>
           <th class='button'>Years of Study</th>
@@ -83,9 +66,11 @@ function renderTable(students) {
 
         </tbody>
         `;
+
+  // в отдельную функцию ↓
   students.forEach((student) => {
     table += `
-    <tr>
+    <tr class="tr_">
       <td>${student.surname} ${student.name} ${student.lastname}</td>
       <td>${student.birthday.toLocaleDateString()} (${setAge(
       student.birthday
@@ -129,9 +114,6 @@ function addStudent() {
 
   students.push(student);
 
-  // console.log(student.birthday);
-  // console.log(setAge(student.birthday));
-
   // console.log(sortStudents(students, "name", false));
 
   let display = `
@@ -152,12 +134,6 @@ function addStudent() {
   let year = new Date(inpYearOfEntry.value);
   console.log(year);
 
-  // let birthObj = JSON.parse(student.birthday);
-  // console.log(birthObj);
-
-  // console.log(typeof student.birthday);
-  // console.log(setAge(student.birthday));
-
   document.querySelector("tbody").insertAdjacentHTML("beforeend", display);
 
   inpBirthday.value = "";
@@ -174,18 +150,6 @@ function setAge(date) {
   return age;
 }
 
-// console.log(typeof testDate);
-// console.log(testAge(testDate));
-
-// function changeBirthday() {
-//   const birthday = formatDate(new Date(inpBirthday.value));
-//   const today = formatDate(new Date());
-//   if (birthday > today) {
-//     console.log("false");
-//     return;
-//   }
-// }
-
 function formatDate(date) {
   let d = new Date(date),
     month = "" + (d.getMonth() + 1),
@@ -198,19 +162,6 @@ function formatDate(date) {
   return [year, month, day].join(".");
 }
 const sortBtn = document.getElementById("sort");
-
-function sortStudents(array, objProperty, direction = false) {
-  let result = array.sort(function (a, b) {
-    let direct =
-      direction == false
-        ? a[objProperty] < b[objProperty]
-        : a[objProperty] > b[objProperty];
-
-    if (direct == true) return -1;
-  });
-
-  return result;
-}
 
 // let buttons = document.querySelectorAll(".button");
 // buttons.forEach((element) =>
@@ -234,16 +185,100 @@ function sortStudents(array, objProperty, direction = false) {
 //   })
 // );
 
+//====================================================================
 function setCourse(year) {
   // const year = date;
   let course = Math.trunc(new Date().getFullYear() - Number(year));
   course > 4 ? (course = "Завершил") : (course = `${course} курс`);
 
-  console.log("course", typeof course);
-  console.log("year:", typeof year);
+  console.log("course:", typeof course); // string
+  console.log("year:", typeof year); // object
   return course;
 }
-console.log("func in action:", typeof setCourse("2021"));
+console.log("func in action:", setCourse("2021"));
+//====================================================================
 
-let testDate = Math.trunc(new Date().getFullYear());
-console.log("testDate:", typeof testDate);
+// let testDate = Math.trunc(new Date().getFullYear());
+// console.log("testDate:", typeof testDate);
+
+// const trFullName
+// const tr
+
+// сортировка
+
+// наход главных ячеек для сортировки по нажатию на них
+let cellFullName = document.getElementById("table").rows[0].cells[0]; // sort full name
+let cellBirthdayAndAge = document.getElementById("table").rows[0].cells[1]; // sort birthday and age
+let cellYearsOfStudy = document.getElementById("table").rows[0].cells[2]; // sort years of study
+let cellFaculty = document.getElementById("table").rows[0].cells[3]; // sort faculty
+
+// function forSort(filter) {
+//   let sortedStudents = students.sort(filter);
+//   let tables = document.querySelectorAll(".tr_");
+//   for (let i = 0; i < tables.length; i++) {
+//     tables.remove();
+//   }
+// }
+
+// function sortStudents(array, objProperty, direction = false) {
+//   let newStudents = [];
+
+//   newStudents.forEach((i) => {
+//     newStudents.push(i[objProperty]);
+//   });
+//   let result = array.sort(function (a, b) {
+//     let direct =
+//       direction == false
+//         ? a[objProperty] < b[objProperty]
+//         : a[objProperty] > b[objProperty];
+
+//     if (direct == true) return -1;
+//   });
+// return result;
+
+// clearStudents();
+// renderTable(array);
+// }
+
+// cellFullName.addEventListener("click", fullSort(students)); //() => {
+// sortStudents(students, "surname", false);
+
+// snpFilter();
+// });
+
+// function clearStudents() {
+//   let forRemove = document.querySelectorAll(".tr_");
+//   forRemove.forEach((i) => {
+//     i.remove();
+//   });
+// }
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// function fullSort(array) {
+//   sortStudents(students, "surname", false);
+//   // clearStudents();
+//   renderTable(array);
+// }
+
+cellFullName.addEventListener("click", () => {
+  forEvent(snpFilter);
+});
+
+function snpFilter(x, y) {
+  if (x.surname < y.surname) {
+    return -1;
+  }
+  if (x.surname > y.surname) {
+    return 1;
+  }
+  return 0;
+}
+
+function forEvent(filter) {
+  let newArray = students.sort(filter);
+  let oldTables = document.querySelectorAll(".tr_");
+  for (let k = 0; k < oldTables.length; k++) {
+    oldTables[k].remove();
+    renderTable(newArray[k]);
+  }
+}
