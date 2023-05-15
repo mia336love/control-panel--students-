@@ -21,7 +21,6 @@ const inpFaculty = document.getElementById("facultyId");
 
 const enterBtn = document.getElementById("enterData");
 
-console.log("type input:", inpYearOfEntry);
 // добавление студентов
 let students = [
   {
@@ -79,8 +78,8 @@ function createTableBody(students) {
     tableBody += `
       <tr class="tr_">
         <td>${surname} ${name} ${lastname}</td>
-        <td>${birthday.toLocaleDateString()} (${setAge(birthday)} years) </td>
-        <td>${startYear}</td>
+        <td>${birthday.toLocaleDateString()} (${setAge(birthday)} лет) </td>
+        <td>${setCourse(startYear)}</td>
         <td>${faculty}</td>
       </tr>
     `;
@@ -124,18 +123,17 @@ function addStudent() {
           <td>${student.surname} ${student.name} ${student.lastname}</td>
           <td>${new Date(inpBirthday.value).toLocaleDateString()} (${setAge(
     student.birthday
-  )} years)</td>
-          <td>${student.startYear}-${
-    Number(inpYearOfEntry.value) + 4
-  } (${setCourse(inpYearOfEntry)})</td>
+  )} лет)</td>
+          <td>${setCourse(Number(student.startYear))}</td>
           <td>${student.faculty}</td>
         </tr>
         `;
 
-  console.log("setCourse(inpYearOfEntry)", typeof inpYearOfEntry);
   // console.log(typeof student.startYear);
-  let year = new Date(inpYearOfEntry.value);
-  console.log(year);
+  // console.log(setCourse(Number(student.startYear)));
+  // console.log(typeof student.startYear);
+  // let year = new Date(inpYearOfEntry.value);
+  // console.log(year);
 
   document.querySelector("tbody").insertAdjacentHTML("beforeend", display);
 
@@ -189,16 +187,25 @@ const sortBtn = document.getElementById("sort");
 // );
 
 //====================================================================
-function setCourse(year) {
-  // const year = date;
-  let course = Math.trunc(new Date().getFullYear() - Number(year));
-  course > 4 ? (course = "Завершил") : (course = `${course} курс`);
+// function setCourse(year) {
+//   // const year = date;
+//   let course = Math.trunc(new Date().getFullYear() - Number(year));
+//   course > 4 ? (course = "Завершил") : (course = `${course} курс`);
 
-  console.log("course:", typeof course); // string
-  console.log("year:", typeof year); // object
-  return course;
+//   // console.log("course:", typeof course); // string
+//   // console.log("year:", typeof year); // object
+//   return course;
+// }
+
+// ver02
+
+function setCourse(startYear) {
+  const currentYear = new Date().getFullYear();
+  const endYear = startYear + 4;
+  const course = currentYear - startYear;
+  const courseNum = course > 4 ? "закончил" : `${course} курс`;
+  return `${startYear}-${endYear} (${courseNum})`;
 }
-console.log("func in action:", setCourse("2021"));
 //====================================================================
 
 // let testDate = Math.trunc(new Date().getFullYear());
