@@ -106,12 +106,12 @@ function addStudent() {
   // course > 4 ? (course = "Завершил") : (course = `${course} курс`);
 
   let student = {
-    surname: inpSurname.value,
-    name: inpName.value,
-    lastname: inpPatronymic.value,
+    surname: inpSurname.value.trim(),
+    name: inpName.value.trim(),
+    lastname: inpPatronymic.value.trim(),
     birthday: new Date(inpBirthday.value),
     startYear: inpYearOfEntry.value,
-    faculty: inpFaculty.value,
+    faculty: inpFaculty.value.trim(),
   };
 
   students.push(student);
