@@ -30,7 +30,7 @@ let students = [
     lastname: "aaaaa",
     birthday: new Date(2003, 2, 3),
     startYear: 2021,
-    faculty: "kl",
+    faculty: "Программирование",
   },
   {
     name: "qqqqqq",
@@ -38,7 +38,7 @@ let students = [
     lastname: "aaaaaa",
     birthday: new Date(2004, 3, 4),
     startYear: 2021,
-    faculty: "kl",
+    faculty: "Философия",
   },
   {
     name: "iiiiiii",
@@ -46,7 +46,7 @@ let students = [
     lastname: "mmmm",
     birthday: new Date(2005, 4, 5),
     startYear: 2020,
-    faculty: "cdc",
+    faculty: "Биология",
   },
 ];
 
@@ -208,13 +208,24 @@ let buttons = document.querySelectorAll(".button");
 buttons.forEach((element) =>
   element.addEventListener("click", () => {
     if (element.innerHTML == "Full Name") {
-      sortStudents(students, "surname");
+      sortStudentsLetters(students, "surname");
       return;
+    }
+    if (element.innerHTML == "Faculty") {
+      sortStudentsLetters(students, "faculty");
+    }
+    if (element.innerHTML == "Birthday and Age") {
+      sortStudentsLetters(students, "birthday");
+    }
+    if (element.innerHTML == "Years of Study") {
+      sortStudentsLetters(students, "startYear");
     }
   })
 );
+
 // сортировка
-function sortStudents(students, elem) {
+// ver02
+function sortStudentsLetters(students, elem) {
   let newStudents = [];
   let oldStudents = [];
   document.querySelectorAll(".tr_").forEach((item) => {
@@ -230,21 +241,6 @@ function sortStudents(students, elem) {
     students = students.sort((a, b) => (a[elem] > b[elem] ? -1 : 1));
     document.getElementById("table").dataset.type = "unsorted";
   }
-  clearTableBody();
-  createTableBody(students);
+  const newTableBody = createTableBody(students);
+  document.querySelector("tbody").innerHTML = newTableBody;
 }
-function clearTableBody() {
-  document.querySelectorAll(".tr__rows").forEach((item) => {
-    item.remove();
-  });
-}
-
-// if (document.getElementById("table").dataset.type == "sorted") {
-//   return students.sort((a, b) => {
-//     a[elem] < b[elem] ? -1 : 1;
-//   });
-// } else if (document.getElementById("table").dataset.type !== "sorted") {
-//   return students.sort((a, b) => {
-//     a[elem] < b[elem] ? -1 : 1;
-//   });
-// }
