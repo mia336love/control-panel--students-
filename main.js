@@ -91,8 +91,17 @@ renderTable(students);
 function addStudent() {
   // проверка на др и возраст
 
+  // const birthday = new Date(inpBirthday.value);
+  // const today = formatDate(new Date());
+
+  // if (birthday > today) {
+  //   console.log(birthday);
+  //   console.log("false");
+  //   return;
+  // }
+
   const birthday = new Date(inpBirthday.value);
-  const today = formatDate(new Date());
+  const today = new Date();
 
   if (birthday > today) {
     console.log(birthday);
@@ -212,11 +221,11 @@ function sortStudentsLetters(students, elem) {
   document.querySelector("tbody").innerHTML = newTableBody;
 }
 
-function setBirthdayLimits() {
-  const birthdayInput = document.getElementById("birthdayId");
-  const today = new Date().toISOString().slice(0, 10);
-  birthdayInput.setAttribute("min", "1900-01-01");
-  birthdayInput.setAttribute("max", today);
-}
+// function setBirthdayLimits() {
+//   const birthdayInput = document.getElementById("birthdayId");
+//   const today = new Date().toISOString().slice(0, 10);
+//   birthdayInput.setAttribute("min", "1900-01-01");
+//   birthdayInput.setAttribute("max", today);
+// }
 
-setBirthdayLimits();
+// setBirthdayLimits();
