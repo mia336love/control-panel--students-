@@ -19,12 +19,28 @@
         <div class="form_body">
           <form action="">
             <p>Фамилия:</p>
-            <input type="text" id="surnameId" /><br />
+            <input
+              type="text"
+              id="surnameId"
+              onKeyUp="if(/[0-9,./+=!@#$%^&*';:?<>]/.test(this.value)){this.value='';}"
+              placeholder="ввод только букв (RU/EN) и -"
+            /><br />
             <!-- мб добавить placeholder -->
             <p>Имя:</p>
-            <input type="text" id="nameId" /><br />
+            <input
+              type="text"
+              id="nameId"
+              onKeyUp="if(/[0-9,./+=!@#$%^&*';:?<>]/.test(this.value)){this.value='';}"
+              placeholder="ввод только букв (RU/EN) и -"
+            /><br />
+            <!-- oninput="/^[А-Я]+i$/" -->
             <p>Отчество:</p>
-            <input type="text" id="patronymicId" /><br />
+            <input
+              type="text"
+              id="patronymicId"
+              onKeyUp="if(/[0-9,./+=!@#$%^&*';:?<>-]/.test(this.value)){this.value='';}"
+              placeholder="ввод только букв (RU/EN)"
+            /><br />
             <p>Дата рождения:</p>
             <input
               type="date"
@@ -41,9 +57,15 @@
               min="2000"
               max="2099"
               step="1"
+              placeholder="год в формате yyyy"
             />
             <p>Факультет:</p>
-            <input type="text" id="facultyId" /><br />
+            <input
+              type="text"
+              id="facultyId"
+              onKeyUp="if(/[,+=!@#$%^&*';:?<>-]/.test(this.value)){this.value='';}"
+              placeholder="ввод только букв (RU/EN) и доп. символов: '0-9', '.', '/' "
+            /><br />
 
             <button id="enterData" type="button">Добавить студента</button>
           </form>

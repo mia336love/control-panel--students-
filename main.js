@@ -32,20 +32,20 @@ let students = [
     faculty: "Философия",
   },
   {
-    surname: "Лунин",
-    name: "Степан",
-    lastname: "Трофимович",
-    birthday: new Date(2004, 3, 4),
-    startYear: 2021,
-    faculty: "Программирование",
-  },
-  {
     surname: "Пережогин",
     name: "Иннокентий",
     lastname: "Валерианович",
     birthday: new Date(2005, 4, 5),
     startYear: 2020,
     faculty: "Биология",
+  },
+  {
+    surname: "Лунин",
+    name: "Степан",
+    lastname: "Трофимович",
+    birthday: new Date(2004, 3, 4),
+    startYear: 2021,
+    faculty: "Программирование",
   },
 ];
 
@@ -97,15 +97,15 @@ function addStudent() {
 
   if (birthday > today) {
     console.log(birthday);
-    console.log("некорректная дата рождения");
+    alert("Некорректная дата рождения");
     return;
   }
 
   //
-  const startYear = parseInt(inpYearOfEntry.value); // parseInt преобразует в целое число (в отличии от Number с плавающей точкой)
+  const startYear = Number(inpYearOfEntry.value);
 
   if (startYear < 2000 || startYear > new Date().getFullYear()) {
-    console.log("некорректный год начала обучения");
+    alert("Некорректный год начала обучения");
     return;
   }
 
@@ -153,6 +153,8 @@ function addStudent() {
   inpPatronymic.value = "";
   inpSurname.value = "";
   inpYearOfEntry.value = "";
+
+  form.classList.remove("active");
 }
 enterBtn.addEventListener("click", addStudent);
 
@@ -161,19 +163,6 @@ function setAge(date) {
   let age = Math.floor((Date.now() - date) / (1000 * 60 * 60 * 24 * 30 * 12));
   return age;
 }
-
-// утратила смысл
-// function formatDate(date) {
-//   let d = new Date(date),
-//     month = "" + (d.getMonth() + 1),
-//     day = "" + d.getDate(),
-//     year = d.getFullYear();
-
-//   if (month.length < 2) month = "0" + month;
-//   if (day.length < 2) day = "0" + day;
-
-//   return [year, month, day].join(".");
-// }
 
 // определение курса
 function setCourse(startYear) {
@@ -206,23 +195,28 @@ buttons.forEach((element) =>
 
 // сортировка
 function sortStudents(students, elem) {
+  // elem имя свойства объекта, по которому сортировать
   let newStudents = [];
   let oldStudents = [];
+
+  // найти имя студента, добавить в массив
   document.querySelectorAll(".tr_").forEach((item) => {
     newStudents.push(item.innerHTML.slice(0, item.innerHTML.indexOf(" ")));
   });
   students.forEach((item) => {
     oldStudents.push(item[elem]);
   });
+
+  // проверка, сортировались ли студенты
   if (document.getElementById("table").dataset.type !== "sorted") {
     students = students.sort((a, b) => (a[elem] > b[elem] ? 1 : -1));
-    document.getElementById("table").dataset.type = "sorted";
+    document.getElementById("table").dataset.type = "sorted"; // в порядке убывания
   } else {
     students = students.sort((a, b) => (a[elem] > b[elem] ? -1 : 1));
-    document.getElementById("table").dataset.type = "unsorted";
+    document.getElementById("table").dataset.type = "unsorted"; // в порядке возрастания
   }
-  const newTableBody = createTableBody(students);
-  document.querySelector("tbody").innerHTML = newTableBody;
+  const newTableBody = createTableBody(students); // создать новые значения
+  document.querySelector("tbody").innerHTML = newTableBody; // замена html таблицы новыми значениями
 }
 
 // все с заглавной

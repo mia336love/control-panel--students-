@@ -45,8 +45,8 @@
 }
 
 .form_body input {
-  border-radius: 20px;
-  width: 40%;
+  border-radius: 10px;
+  width: 50%;
   margin-top: 0.1%;
   padding: 10px 35px;
 }
@@ -99,7 +99,7 @@ tfoot {
   background: linear-gradient(to top, #e4af9d 20%, #e4e4d8 50%, #a19887 80%);
 } */
 
-body {
+/* body {
   height: 100%;
-  background: radial-gradient(30% 50%, #faecd5, #ffff) no-repeat;
-}
+  background: radial-gradient(30% 50%, #d3c9cc, #ffffff) no-repeat;
+} */
