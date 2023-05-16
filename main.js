@@ -24,25 +24,25 @@ const enterBtn = document.getElementById("enterData");
 // добавление студентов
 let students = [
   {
-    name: "bbb",
-    surname: "fffff",
-    lastname: "aaaaa",
+    surname: "Волошина",
+    name: "Алена",
+    lastname: "Николаевна",
     birthday: new Date(2003, 2, 3),
-    startYear: 2021,
-    faculty: "Программирование",
-  },
-  {
-    name: "qqqqqq",
-    surname: "xxxxxx",
-    lastname: "aaaaaa",
-    birthday: new Date(2004, 3, 4),
     startYear: 2021,
     faculty: "Философия",
   },
   {
-    name: "iiiiiii",
-    surname: "sssss",
-    lastname: "mmmm",
+    surname: "Лунин",
+    name: "Степан",
+    lastname: "Трофимович",
+    birthday: new Date(2004, 3, 4),
+    startYear: 2021,
+    faculty: "Программирование",
+  },
+  {
+    surname: "Пережогин",
+    name: "Иннокентий",
+    lastname: "Валерианович",
     birthday: new Date(2005, 4, 5),
     startYear: 2020,
     faculty: "Биология",
@@ -68,7 +68,7 @@ function renderTable(students) {
   `;
   const tableBody = createTableBody(students);
   const table = tableHeader + tableBody + tableFooter;
-  document.querySelector("body").insertAdjacentHTML("beforeend", table);
+  document.querySelector(".table_body").insertAdjacentHTML("beforeend", table);
 }
 
 function createTableBody(students) {
@@ -100,10 +100,18 @@ function addStudent() {
     return;
   }
 
-  // курс
-  // const year = inpYearOfEntry.value;
-  // let course = Math.trunc(new Date().getFullYear() - inpYearOfEntry.value);
-  // course > 4 ? (course = "Завершил") : (course = `${course} курс`);
+  // Проверка на пустые поля
+  if (
+    inpSurname.value.trim() === "" ||
+    inpName.value.trim() === "" ||
+    inpPatronymic.value.trim() === "" ||
+    inpBirthday.value.trim() === "" ||
+    inpYearOfEntry.value.trim() === "" ||
+    inpFaculty.value.trim() === ""
+  ) {
+    alert("Пожалуйста, заполните все поля");
+    return;
+  }
 
   let student = {
     surname: inpSurname.value.trim(),
@@ -116,8 +124,6 @@ function addStudent() {
 
   students.push(student);
 
-  // console.log(sortStudents(students, "name", false));
-
   let display = `
         <tr>
           <td>${student.surname} ${student.name} ${student.lastname}</td>
@@ -128,12 +134,6 @@ function addStudent() {
           <td>${student.faculty}</td>
         </tr>
         `;
-
-  // console.log(typeof student.startYear);
-  // console.log(setCourse(Number(student.startYear)));
-  // console.log(typeof student.startYear);
-  // let year = new Date(inpYearOfEntry.value);
-  // console.log(year);
 
   document.querySelector("tbody").insertAdjacentHTML("beforeend", display);
 
@@ -164,41 +164,6 @@ function formatDate(date) {
 }
 const sortBtn = document.getElementById("sort");
 
-// let buttons = document.querySelectorAll(".button");
-// buttons.forEach((element) =>
-//   element.addEventListener("click", () => {
-//     if (element.innerHTML == "Full Name") {
-//       sortStudents(students, "surname", false);
-//       return;
-//     }
-//     if (element.innerHTML == "Faculty") {
-//       sortStudent(students, "faculty", element, "Faculty");
-//       return;
-//     }
-//     if (element.innerHTML == "Birthday and Age") {
-//       sortStudent(students, "birthday", element, "Birthday and Age");
-//       return;
-//     }
-//     if (element.innerHTML == "Years of Study") {
-//       sortStudent(students, "startYear", element, "Years of Study");
-//       return;
-//     }
-//   })
-// );
-
-//====================================================================
-// function setCourse(year) {
-//   // const year = date;
-//   let course = Math.trunc(new Date().getFullYear() - Number(year));
-//   course > 4 ? (course = "Завершил") : (course = `${course} курс`);
-
-//   // console.log("course:", typeof course); // string
-//   // console.log("year:", typeof year); // object
-//   return course;
-// }
-
-// ver02
-
 function setCourse(startYear) {
   const currentYear = new Date().getFullYear();
   const endYear = startYear + 4;
@@ -206,10 +171,6 @@ function setCourse(startYear) {
   const courseNum = course > 4 ? "закончил" : `${course} курс`;
   return `${startYear}-${endYear} (${courseNum})`;
 }
-//====================================================================
-
-// let testDate = Math.trunc(new Date().getFullYear());
-// console.log("testDate:", typeof testDate);
 
 let buttons = document.querySelectorAll(".button");
 buttons.forEach((element) =>
@@ -231,7 +192,6 @@ buttons.forEach((element) =>
 );
 
 // сортировка
-// ver02
 function sortStudentsLetters(students, elem) {
   let newStudents = [];
   let oldStudents = [];
@@ -251,3 +211,12 @@ function sortStudentsLetters(students, elem) {
   const newTableBody = createTableBody(students);
   document.querySelector("tbody").innerHTML = newTableBody;
 }
+
+function setBirthdayLimits() {
+  const birthdayInput = document.getElementById("birthdayId");
+  const today = new Date().toISOString().slice(0, 10);
+  birthdayInput.setAttribute("min", "1900-01-01");
+  birthdayInput.setAttribute("max", today);
+}
+
+setBirthdayLimits();
