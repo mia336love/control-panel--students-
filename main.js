@@ -1,4 +1,4 @@
-// form
+// форма
 const openForm = document.getElementById("openForm");
 const closeForm = document.getElementById("closeForm");
 const form = document.querySelector(".form");
@@ -21,7 +21,7 @@ const inpFaculty = document.getElementById("facultyId");
 
 const enterBtn = document.getElementById("enterData");
 
-// добавление студентов
+// массив студентов
 let students = [
   {
     surname: "Волошина",
@@ -49,6 +49,7 @@ let students = [
   },
 ];
 
+// отрисовка таблицы
 function renderTable(students) {
   const tableHeader = `
     <table id="table" data-type="unsorted">
@@ -71,6 +72,7 @@ function renderTable(students) {
   document.querySelector(".table_body").insertAdjacentHTML("beforeend", table);
 }
 
+// заполнение таблицы значениями
 function createTableBody(students) {
   let tableBody = "";
   students.forEach((student) => {
@@ -90,22 +92,20 @@ renderTable(students);
 
 function addStudent() {
   // проверка на др и возраст
-
-  // const birthday = new Date(inpBirthday.value);
-  // const today = formatDate(new Date());
-
-  // if (birthday > today) {
-  //   console.log(birthday);
-  //   console.log("false");
-  //   return;
-  // }
-
   const birthday = new Date(inpBirthday.value);
   const today = new Date();
 
   if (birthday > today) {
     console.log(birthday);
-    console.log("false");
+    console.log("некорректная дата рождения");
+    return;
+  }
+
+  //
+  const startYear = parseInt(inpYearOfEntry.value); // parseInt преобразует в целое число (в отличии от Number с плавающей точкой)
+
+  if (startYear < 2000 || startYear > new Date().getFullYear()) {
+    console.log("некорректный год начала обучения");
     return;
   }
 
@@ -123,12 +123,12 @@ function addStudent() {
   }
 
   let student = {
-    surname: inpSurname.value.trim(),
-    name: inpName.value.trim(),
-    lastname: inpPatronymic.value.trim(),
+    surname: uppercase(inpSurname.value.trim()),
+    name: uppercase(inpName.value.trim()),
+    lastname: uppercase(inpPatronymic.value.trim()),
     birthday: new Date(inpBirthday.value),
     startYear: inpYearOfEntry.value,
-    faculty: inpFaculty.value.trim(),
+    faculty: uppercase(inpFaculty.value.trim()),
   };
 
   students.push(student);
@@ -146,6 +146,7 @@ function addStudent() {
 
   document.querySelector("tbody").insertAdjacentHTML("beforeend", display);
 
+  // очищение ввода
   inpBirthday.value = "";
   inpFaculty.value = "";
   inpName.value = "";
@@ -155,24 +156,26 @@ function addStudent() {
 }
 enterBtn.addEventListener("click", addStudent);
 
+// определение возраста
 function setAge(date) {
   let age = Math.floor((Date.now() - date) / (1000 * 60 * 60 * 24 * 30 * 12));
   return age;
 }
 
-function formatDate(date) {
-  let d = new Date(date),
-    month = "" + (d.getMonth() + 1),
-    day = "" + d.getDate(),
-    year = d.getFullYear();
+// утратила смысл
+// function formatDate(date) {
+//   let d = new Date(date),
+//     month = "" + (d.getMonth() + 1),
+//     day = "" + d.getDate(),
+//     year = d.getFullYear();
 
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
+//   if (month.length < 2) month = "0" + month;
+//   if (day.length < 2) day = "0" + day;
 
-  return [year, month, day].join(".");
-}
-const sortBtn = document.getElementById("sort");
+//   return [year, month, day].join(".");
+// }
 
+// определение курса
 function setCourse(startYear) {
   const currentYear = new Date().getFullYear();
   const endYear = startYear + 4;
@@ -181,27 +184,28 @@ function setCourse(startYear) {
   return `${startYear}-${endYear} (${courseNum})`;
 }
 
+// ивенты на заголовки
 let buttons = document.querySelectorAll(".button");
 buttons.forEach((element) =>
   element.addEventListener("click", () => {
     if (element.innerHTML == "Full Name") {
-      sortStudentsLetters(students, "surname");
+      sortStudents(students, "surname");
       return;
     }
     if (element.innerHTML == "Faculty") {
-      sortStudentsLetters(students, "faculty");
+      sortStudents(students, "faculty");
     }
     if (element.innerHTML == "Birthday and Age") {
-      sortStudentsLetters(students, "birthday");
+      sortStudents(students, "birthday");
     }
     if (element.innerHTML == "Years of Study") {
-      sortStudentsLetters(students, "startYear");
+      sortStudents(students, "startYear");
     }
   })
 );
 
 // сортировка
-function sortStudentsLetters(students, elem) {
+function sortStudents(students, elem) {
   let newStudents = [];
   let oldStudents = [];
   document.querySelectorAll(".tr_").forEach((item) => {
@@ -221,11 +225,7 @@ function sortStudentsLetters(students, elem) {
   document.querySelector("tbody").innerHTML = newTableBody;
 }
 
-// function setBirthdayLimits() {
-//   const birthdayInput = document.getElementById("birthdayId");
-//   const today = new Date().toISOString().slice(0, 10);
-//   birthdayInput.setAttribute("min", "1900-01-01");
-//   birthdayInput.setAttribute("max", today);
-// }
-
-// setBirthdayLimits();
+// все с заглавной
+function uppercase(str) {
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
+}
